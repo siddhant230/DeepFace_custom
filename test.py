@@ -91,7 +91,6 @@ class FaceSimilarity(dfc, fe):
         if len(face_1) == 0 and len(face_2) == 0:
             logger.error('Face not detected in any document!')
 
-        print(face_1.shape, face_2.shape)
         result = None
         if len(face_1) != 0:
             result = self.find_similarity(face_1, face_2)
