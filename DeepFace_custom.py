@@ -2,7 +2,7 @@ import cv2
 import json
 import falcon
 import logging
-import lib.deepface_custom.Facenet as Facenet
+import Facenet
 import numpy as np
 from tqdm import tqdm
 
@@ -19,8 +19,7 @@ class DeepFaceCustom:
             logger.info('FaceNet model loaded')
         except:
             logger.info('FaceNet model not loaded')
-            raise falcon.HTTPBadRequest(title="FaceNet model not loaded!")
-
+            
     @staticmethod
     def find_threshold(distance_metric: str):
         """

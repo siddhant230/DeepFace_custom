@@ -534,7 +534,7 @@ def loadModel():
 	main_model = InceptionResNetV2()
 	
 	#-----------------------------------
-	path = "lib/deepface_custom/weights"
+	path = "weights"
 	#-----------------------------------
 	
 	main_model.load_weights(path + "/facenet_weights.h5")

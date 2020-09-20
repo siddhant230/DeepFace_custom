@@ -22,24 +22,22 @@ class FaceExtract:
 
     def __init__(self):
         try:
-            face_detector_path = "./lib/deepface_custom/haar_xmls/haarcascade_frontalface_default.xml"
-            eye_detector_path = "./lib/deepface_custom/haar_xmls/haarcascade_eye.xml"
+            face_detector_path = "./haar_xmls/haarcascade_frontalface_default.xml"
+            eye_detector_path = "./haar_xmls/haarcascade_eye.xml"
             self.face_detector = cv2.CascadeClassifier(face_detector_path)
             self.eye_detector = cv2.CascadeClassifier(eye_detector_path)
             logger.info("face and eye detector models loaded")
         except:
             logger.error("Unable to load face or eye detector models")
-            raise falcon.HTTPBadRequest(title="Unable to load face or eye detector models")
 
         try:
-            prototxt_path = './lib/deepface_custom/face_detector/deploy.prototxt'
-            weights_path = './lib/deepface_custom/face_detector/res10_300x300_ssd_iter_140000.caffemodel'
+            prototxt_path = './face_detector/deploy.prototxt'
+            weights_path = './face_detector/res10_300x300_ssd_iter_140000.caffemodel'
             self.face_ext_model = cv2.dnn.readNet(prototxt_path, weights_path)
             logger.info('face Extractor model loaded')
         except:
             logger.error("Unable to load face extractor model")
-            raise falcon.HTTPBadRequest(title="Unable to load face extractor model")
-
+            
     def detect_face_mod(self, frame: np.array, confidence_thresh=0.5):
         """
         :params img: (np array) selfie image
@@ -72,7 +70,6 @@ class FaceExtract:
                     face = np.expand_dims(face, axis=0)
                 except:
                     logger.info("selfie face not detected")
-                    raise falcon.HTTPBadRequest(title="Selfie face not detected!")
 
                 faces.append(face)
                 locs.append((startX, startY, endX, endY))
